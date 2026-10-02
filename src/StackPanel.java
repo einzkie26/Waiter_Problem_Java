@@ -4,23 +4,35 @@ import java.util.Stack;
 
 public class StackPanel extends JPanel {
 
+    private static final Color BORDER = new Color(203, 213, 225);
+    private static final Color INK = new Color(30, 41, 59);
+    private static final Color MUTED = new Color(100, 116, 139);
+
     public StackPanel(String title, Stack<Integer> stack) {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(200, 200, 200), 1),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)
+            BorderFactory.createLineBorder(BORDER, 1),
+            BorderFactory.createEmptyBorder(14, 14, 14, 14)
         ));
-        setBackground(new Color(255, 255, 255));
+        setBackground(new Color(248, 250, 252));
 
-        JLabel titleLabel = new JLabel(title);
+        JLabel titleLabel = new JLabel(title.toUpperCase());
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        titleLabel.setForeground(new Color(50, 50, 50));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
-        add(titleLabel, BorderLayout.NORTH);
+        titleLabel.setForeground(INK);
+
+        JLabel countLabel = new JLabel(stack.size() + " plate" + (stack.size() == 1 ? "" : "s"));
+        countLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        countLabel.setForeground(MUTED);
+        JPanel header = new JPanel(new BorderLayout());
+        header.setOpaque(false);
+        header.setBorder(BorderFactory.createEmptyBorder(0, 0, 12, 0));
+        header.add(titleLabel, BorderLayout.WEST);
+        header.add(countLabel, BorderLayout.EAST);
+        add(header, BorderLayout.NORTH);
 
         JPanel items = new JPanel();
         items.setLayout(new BoxLayout(items, BoxLayout.Y_AXIS));
-        items.setBackground(new Color(255, 255, 255));
+        items.setBackground(new Color(248, 250, 252));
         items.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         Stack<Integer> temp = (Stack<Integer>) stack.clone();
@@ -37,7 +49,7 @@ public class StackPanel extends JPanel {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.getViewport().setBackground(new Color(255, 255, 255));
+        scrollPane.getViewport().setBackground(new Color(248, 250, 252));
 
         add(scrollPane, BorderLayout.CENTER);
     }
